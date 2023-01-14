@@ -61,3 +61,21 @@ time, mark, audio, video {
     padding: 5px;
     margin-right: 5px;
 }
+.list_container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.item{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item_text{
+    width: 166px;
+    margin-right: 10px;
+    font-size: 21px;
+}

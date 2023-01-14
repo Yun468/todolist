@@ -1,7 +1,6 @@
 /* eslint-disable */
 import "./index.css";
 import React from "react";
-import ReactDOM from "react-dom";
 import { Route, NavLink, HashRouter } from "react-router-dom";
 
 // 主頁的組件
