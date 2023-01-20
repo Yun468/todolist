@@ -1,16 +1,54 @@
 /* eslint-disable */
 import "./index.css";
 import React, { useState } from "react";
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
+const firebaseConfig = {
 
+  };
+  
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
+const db = getFirestore(app);
+
+const colRef = collection(db,'list');
+
+let listItems = [];
+
+//取得db的document
+getDocs(colRef)                              //getDoc()會返回一個promise
+    .then((result) => {
+        result.docs.forEach((doc) => {
+            listItems.push(doc.data())          //拿到全部資料並成為一個object，放入listItems中
+        });
+    })
+    .catch((err) => {
+        console.log(err.message)
+    });  
 //List頁的組件
 function ListPage(){
     // state hook  --useSate
     const [newItem,setNewItem] = useState("");
     const [items,setItems] = useState([]);
     const [newId,setNewId] = useState(0);
+
+    //載入db 原有的list
+    let contents = Object.keys(listItems[0]).map((i) => listItems[0][i]);       //所有content
+    let contentsId = Object.keys(listItems[0]).map((i) => i);                   //所有content 對應的id
+    for (let x=0; x<contents.length; x++){
+        let item = {
+            id: contentsId[x],
+            value: contents[x]
+        };
+        console.log(item)
+        setItems(oldList => [...oldList, item]);     //此處出錯!!!!!!!!!!
+    }
+
+    console.log("測試次數")
+
     // helper functions
     function addItem(){
 
@@ -26,6 +64,7 @@ function ListPage(){
         setItems(oldList => [...oldList, item])
         setNewItem("");
         setNewId(item.id);
+        console.log(items)
     };
     function deleteItem(id){
         const newArray = items.filter(item => item.id !== id);
@@ -62,6 +101,6 @@ function ListPage(){
             </div>
         </>
     );
-} 
+}
 
 export default ListPage;
