@@ -78,4 +78,5 @@ time, mark, audio, video {
     width: 166px;
     margin-right: 10px;
     font-size: 21px;
+    word-break: break-all;
 }

@@ -1,0 +1,64 @@
+[debug] [2023-01-20T10:32:40.839Z] ----------------------------------------------------------------------
+[debug] [2023-01-20T10:32:40.842Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-01-20T10:32:40.842Z] CLI Version:   11.20.0
+[debug] [2023-01-20T10:32:40.843Z] Platform:      win32
+[debug] [2023-01-20T10:32:40.843Z] Node Version:  v18.13.0
+[debug] [2023-01-20T10:32:40.856Z] Time:          Fri Jan 20 2023 18:32:40 GMT+0800 (台北標準時間)
+[debug] [2023-01-20T10:32:40.856Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-20T10:32:40.947Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-20T10:32:40.948Z] > authorizing via signed-in user (wuwu14863@gmail.com)
+[debug] [2023-01-20T10:32:40.948Z] [iam] checking project todolist-e320b for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-01-20T10:32:40.954Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/todolist-e320b:testIamPermissions [none]
+[debug] [2023-01-20T10:32:40.955Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/todolist-e320b:testIamPermissions x-goog-quota-user=projects/todolist-e320b
+[debug] [2023-01-20T10:32:40.955Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todolist-e320b:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-01-20T10:32:41.925Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/todolist-e320b:testIamPermissions 200
+[debug] [2023-01-20T10:32:41.926Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/todolist-e320b:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-01-20T10:32:41.927Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/todolist-e320b [none]
+[debug] [2023-01-20T10:32:42.231Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/todolist-e320b 200
+[debug] [2023-01-20T10:32:42.231Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/todolist-e320b {"projectId":"todolist-e320b","projectNumber":"869686855878","displayName":"ToDoList","name":"projects/todolist-e320b","resources":{"hostingSite":"todolist-e320b"},"state":"ACTIVE","etag":"1_f1477020-3162-4066-8851-cf741d6c84e7"}
+[info] 
+[info] === Deploying to 'todolist-e320b'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-01-20T10:32:42.247Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions [none]
+[debug] [2023-01-20T10:32:42.248Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-01-20T10:32:43.443Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions 200
+[debug] [2023-01-20T10:32:43.443Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions {"name":"projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[todolist-e320b]: beginning deploy... 
+[info] i  hosting[todolist-e320b]: found 3 files in dist 
+[debug] [2023-01-20T10:32:43.456Z] [hosting] uploading with 200 concurrency
+[debug] [2023-01-20T10:32:43.465Z] [hosting] hash cache [ZGlzdA] stored for 3 files
+[debug] [2023-01-20T10:32:43.466Z] [hosting][hash queue][FINAL] {"max":2,"min":0,"avg":0,"active":0,"complete":3,"success":3,"errored":0,"retried":0,"total":3,"elapsed":6}
+[debug] [2023-01-20T10:32:43.466Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e:populateFiles [none]
+[debug] [2023-01-20T10:32:43.466Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e:populateFiles {"files":{"/index.html":"c149f019baba95df3305cbc380f8b8ef0a94939740acfc9c32a8810212f9a3ef","/main.js":"a896846b44521d9b2c8485e045e851d2dd9396621a0f8c96f08d89373c6eb6bd","/main.js.LICENSE.txt":"05243be49a56b20a9925a8946cf11a1ae24b6d38e32371cb2051e659e9a7480a"}}
+[debug] [2023-01-20T10:32:44.115Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e:populateFiles 200
+[debug] [2023-01-20T10:32:44.115Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/todolist-e320b/versions/cfe7377c5bdb790e/files"}
+[debug] [2023-01-20T10:32:44.115Z] [hosting][populate queue][FINAL] {"max":652,"min":652,"avg":652,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":652}
+[debug] [2023-01-20T10:32:44.115Z] [hosting] uploads queued: 0
+[debug] [2023-01-20T10:32:44.116Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1674210764116}
+[info] +  hosting[todolist-e320b]: file upload complete 
+[debug] [2023-01-20T10:32:44.126Z] [hosting] deploy completed after 680ms
+[debug] [2023-01-20T10:32:44.131Z] [
+  {
+    "config": {
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "todolist-e320b"
+    },
+    "version": "projects/869686855878/sites/todolist-e320b/versions/cfe7377c5bdb790e"
+  }
+]
+[info] i  hosting[todolist-e320b]: finalizing version... 
+[debug] [2023-01-20T10:32:44.136Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions/cfe7377c5bdb790e updateMask=status%2Cconfig
+[debug] [2023-01-20T10:32:44.136Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/todolist-e320b/versions/cfe7377c5bdb790e {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}

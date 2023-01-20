@@ -4,3 +4,6 @@ node_modules
 
 #Elsintrc
 .eslintrc.js
+
+#Firebase
+firebaseConfig.js

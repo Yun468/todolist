@@ -1,57 +1,41 @@
 /* eslint-disable */
 import "./index.css";
-import React, { useState } from "react";
+import React,{useEffect} from "react";
+import useState from "react-usestateref";
 import {NavLink} from "react-router-dom";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-const firebaseConfig = {
-
-  };
-  
-  // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
+import {db} from "./firebaseConfig"
+import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 
 const colRef = collection(db,'list');
 
-let listItems = [];
-
-//取得db的document
-getDocs(colRef)                              //getDoc()會返回一個promise
-    .then((result) => {
-        result.docs.forEach((doc) => {
-            listItems.push(doc.data())          //拿到全部資料並成為一個object，放入listItems中
-        });
-    })
-    .catch((err) => {
-        console.log(err.message)
-    });  
 //List頁的組件
 function ListPage(){
     // state hook  --useSate
     const [newItem,setNewItem] = useState("");
     const [items,setItems] = useState([]);
-    const [newId,setNewId] = useState(0);
+    const [newId,setNewId,ref] = useState(0);
 
-    //載入db 原有的list
-    let contents = Object.keys(listItems[0]).map((i) => listItems[0][i]);       //所有content
-    let contentsId = Object.keys(listItems[0]).map((i) => i);                   //所有content 對應的id
-    for (let x=0; x<contents.length; x++){
-        let item = {
-            id: contentsId[x],
-            value: contents[x]
+    //取得db的document
+    useEffect(() =>{
+        const getData = async() => {
+            const data = await getDocs(colRef);
+            const contents = data.docs.map((doc) => ({...doc.data(), docId:doc.id}));
+            contents.map(content => {
+                content = Object.keys(content).map((i) => content[i]);
+                const item = {
+                    id: ref.current+1,
+                    value: content[0],
+                };
+                setItems(oldList => [...oldList, item]);
+                setNewId(item.id);
+            })
         };
-        console.log(item)
-        setItems(oldList => [...oldList, item]);     //此處出錯!!!!!!!!!!
-    }
+        getData();
+    },[]);
 
-    console.log("測試次數")
 
     // helper functions
     function addItem(){
-
         if(!newItem){
             alert("請輸入文字")
             return;
@@ -61,14 +45,28 @@ function ListPage(){
             id: newId+1,
             value: newItem
         };
+
         setItems(oldList => [...oldList, item])
         setNewItem("");
         setNewId(item.id);
-        console.log(items)
+        // addDoc(collection(db, "list"), {content:newItem});
+        const now = new Date()
+        let documentId = now.getFullYear().toString() + now.getMonth().toString() + now.getDate().toString() + now.getHours().toString() + now.getMinutes().toString() + now.getSeconds().toString()
+        setDoc(doc(db, "list", documentId), {content:newItem}, { merge: true })
     };
+
     function deleteItem(id){
         const newArray = items.filter(item => item.id !== id);
         setItems(newArray);
+        let delContent = items.filter(item => item.id === id)[0].value;
+        //取得欲刪除content的documentID
+        const getOldData = async() => {
+            const data = await getDocs(colRef);
+            const oldContents = data.docs.map((doc) => ({...doc.data(), docId:doc.id}));
+            delContent = oldContents.filter(item => item.content === delContent )[0]
+            deleteDoc(doc(db, "list", delContent.docId));
+        };
+       getOldData();
     }
 
     return(
